@@ -1,9 +1,9 @@
 # coding=utf-8
-import copy
+
 if __name__ == "__main__":
-    a = [0, [1, 2], 3]
-    b = copy.deepcopy(a)
-    a[0] = 8
-    a[1][1] = 9
-    print('a ', a)
-    print('b ', b)
+    a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    b = a[4:]
+    print("Before:", b)
+    b[1] = 99
+    print("After:", b)
+    print("Original:", a)
