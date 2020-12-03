@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
-# @Time : 2020/12/2 15:53
+# @Time : 2020/12/3 16:30
 # @Function :
 
 if __name__ == "__main__":
-    name = 'jason'
-    print("索引操作：", name[0])
-    print("切片操作：", name[1:3])
-    print("遍历：")
-    for char in name:
-        print(char)
+    title = "python核心编程"
+    print("--unicode字符--")
+    print('title是：', title)
+    print('title的类型：', type(title))
+    print('title的长度：', len(title))
+    print("--原始字节--")
+    title = title.encode('utf-8')
+    print('title是：', title)
+    print('title的类型：', type(title))
+    print('title的长度：', len(title))
