@@ -7,8 +7,8 @@ class PowTwo:
     """Class to implement an iterator
     of powers of two"""
 
-    def __init__(self, max = 0):
-        self.max = max
+    def __init__(self, max_power=0):
+        self.max = max_power
 
     def __iter__(self):
         self.n = 0

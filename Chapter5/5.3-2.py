@@ -1,18 +1,7 @@
 # -*- coding:UTF-8 -*-
 
-# A simple generator function
-def my_gen():
-    n = 1
-    yield n
-
-    n += 1
-    yield n
-
-    n += 1
-    yield n
-
-
 if __name__ == "__main__":
-    a = my_gen()
-    for item in a:
-        print("n={}".format(item))
+    a = [1, 2, 3]
+    gene = (x ** 2 for x in a)
+    for item in gene:
+        print(item)
