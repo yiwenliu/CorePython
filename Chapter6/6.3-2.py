@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 def log(message, when=datetime.now()):
-    print("%s:%s" %(when, message))
+    print("%s:%s" % (when, message))
 
 
 if __name__ == "__main__":
