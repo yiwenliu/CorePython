@@ -1,12 +1,11 @@
 # -*- coding:UTF-8 -*-
 
 """
-以多线程的方式实现网站下载任务
+以单线程的方式实现网站下载任务
 """
 
 import requests
 import time
-import concurrent.futures
 
 
 sites = [
@@ -40,16 +39,12 @@ def download_one(url):
 
 
 def download_all():
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-        executor.map(download_one, sites)
+    for site in sites:
+        download_one(site)
 
 
-def main():
+if __name__ == '__main__':
     start_time = time.perf_counter()
     download_all()
     end_time = time.perf_counter()
     print('Download {} sites in {} seconds'.format(len(sites), end_time - start_time))
-
-
-if __name__ == '__main__':
-    main()

@@ -1,13 +1,7 @@
 # -*- coding:UTF-8 -*-
-
-"""
-以多线程的方式实现网站下载任务
-"""
-
 import requests
 import time
-import concurrent.futures
-
+import threading
 
 sites = [
         'https://news.sina.com.cn/',
@@ -39,17 +33,15 @@ def download_one(url):
     print('Read {} from {}'.format(len(resp.content), url))
 
 
-def download_all():
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-        executor.map(download_one, sites)
-
-
-def main():
+if __name__ == '__main__':
+    threads = []
     start_time = time.perf_counter()
-    download_all()
+    for site in sites:
+        t = threading.Thread(target=download_one, args=(site,))
+        threads.append(t)
+        t.start()
+    # 等待全部线程执行完毕
+    for thread in threads:
+        thread.join()
     end_time = time.perf_counter()
     print('Download {} sites in {} seconds'.format(len(sites), end_time - start_time))
-
-
-if __name__ == '__main__':
-    main()
