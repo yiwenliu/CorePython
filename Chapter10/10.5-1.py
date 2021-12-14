@@ -1,22 +1,53 @@
 # -*- coding:UTF-8 -*-
-import time
+import threading
 
 
-def factorize(number):
+class Counter(object):
+    def __init__(self):
+        self.count = 0
+
+    def increment(self, offset):
+        self.count += offset
+
+
+def worker(sensor_index, how_many, counter):
     """
-    计算密集型任务：一种非常原始的因数分解算法
-    :param number:
+    每个采集线程的工作
+    :param sensor_index:
+    :param how_many: 采集数据的次数
+    :param counter: 共享的计数器对象
     :return:
     """
-    for i in range(1, number + 1):
-        if number % i == 0:
-            yield i
+    for _ in range(how_many):
+        # 读取传感器数据
+        counter.increment(1)
+
+
+def run_threads(func, how_many, counter):
+    """
+    为5个传感器各启动一个工作线程，然后等待它们完成各自的采样工作
+    :param func: 线程函数
+    :param how_many: 每个线程需要完成的采样的次数
+    :param counter: 共享的计数器对象
+    :return:
+    """
+    threads = []
+    for i in range(5):
+        args = (i, how_many, counter)
+        thread = threading.Thread(target=func, args=args)
+        threads.append(thread)
+        thread.start()
+    for thread in threads:
+        thread.join()
 
 
 if __name__ == "__main__":
-    numbers = [2139079, 1214759, 1852285, 2135468, 2546813, 5421652, 2154632, 2154652]
-    start = time.time()
-    for number in numbers:
-        list(factorize(number))
-    end = time.time()
-    print('Took %.3f seconds.' % (end - start))
+
+    how_many = 10 ** 5
+    counter = Counter()
+    run_threads(worker, how_many, counter)
+    print('Counter 应该是 %d, 实际上是 %d' % (5*how_many, counter.count))
+    """
+    import dis
+    dis.dis(Counter.increment)
+    """
