@@ -4,7 +4,7 @@ a = 1
 
 
 def g():
-    print("in function g: ",a)
+    print("in function g: ", a)
 
 
 def f():

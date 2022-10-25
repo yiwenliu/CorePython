@@ -8,6 +8,11 @@ def load_url(url):
 
 
 if __name__ == "__main__":
+    """
+    对于submit()应该关注：
+    1、如何把参数传递给执行函数
+    2、这个函数的返回值是一个Future实例
+    """
     url = 'http://baidu.com'
     executor = ThreadPoolExecutor(max_workers=1)  # 定义一个执行器对象
     future = executor.submit(load_url, url)  # 将可调用对象load_url，以load_url(url)方式封装为异步执行的Future对象

@@ -24,3 +24,4 @@ if __name__ == "__main__":
     results = list(pool.map(factorize, numbers))
     end = time.time()
     print('Took %.3f seconds' % (end - start))
+    # print(results)
